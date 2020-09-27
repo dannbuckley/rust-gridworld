@@ -38,5 +38,19 @@ pub trait MDP<S, A, P, R> {
 /// Generic Learning Agent trait.
 pub trait LearningAgent {
   /// Runs this learning agent to completion.
-  fn run();
+  fn run(&mut self);
+}
+
+/// Generic Value Iteration Learning Agent trait.
+///
+/// - S: Type for representing states of Markov Decision Process.
+/// - A: Type for representing actions of Markov Decision Process.
+/// - R: Numeric type used in Markov Decision Process for representing rewards.
+pub trait ValueIterationAgent<S, A, R> {
+  /// Calculates the Q-value for the provided state-action pair.
+  fn calculate_q_value(&self, state: S, action: A) -> R;
+
+  /// Calculates the optimal action for the provided state.
+  /// If the state has no legal actions, the function returns `None`.
+  fn calculate_policy_action(&self, state: S) -> Option<A>;
 }
