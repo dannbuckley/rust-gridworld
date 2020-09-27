@@ -316,6 +316,11 @@ impl ValueIterationAgent<GridworldState, GridworldAction, f64> for Gridworld {
 
   fn calculate_policy_action(&self, state: GridworldState) -> Option<GridworldAction> {
     let actions = self.get_actions(state);
+    // if no legal actions, return None
+    if actions.len() == 0 {
+      return None;
+    }
+
     // get Q-values for each action
     let q: Vec<(usize, f64)> = actions
       .clone()
